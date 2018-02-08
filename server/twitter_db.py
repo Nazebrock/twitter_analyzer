@@ -16,9 +16,6 @@ class TwitterDB():
         df = self.spark.read.json("hdfs://172.17.0.2:9000/input/twitter/tweets.json")
         rdd = df.rdd
         rdd = rdd.filter(lambda x: "test" in x['text']).map(lambda x: x['text'])
-        #
-
-        print(places.collect())
 
         return rdd.first()
 
@@ -37,7 +34,7 @@ class TwitterDB():
         # Remove empty hashtags
         hashtags = rdd.filter(lambda x: x['entities']['hashtags'] != [])
         # Get the list of hashtags
-        hashtags = hashtags.flatMap(lambda x: x['entities']['hashtags'])
+        hashtags = hashtags.flatMap(lambda x: x['entities']['hashatags'])
         hashtags = hashtags.map(lambda x: (x['text'], 1))
         # Reduce by key to count each hashtag
         hashtags = hashtags.reduceByKey(lambda x, y: x + y)

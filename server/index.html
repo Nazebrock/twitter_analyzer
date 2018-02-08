@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/twitter_analyzer_style.css">
+        <title>Statistiques Des Tweet</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <div class="title">
+                    <h1>Statistiques Des Tweet</h1>
+                </div>
+            </div>
+            <form class="search-form" action="#" onsubmit="search();">
+                <input id="search-field" type="text" placeholder="Rechercher un mot dans les tweet"/>
+                <input type="submit" value="Rechercher">
+            </form>
+            <div id="result" >
+                <div id="stat" class="container">
+
+                </div>
+                <div id="wordcloud" class="container">
+
+                </div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </body>
+</html>
+<script src="js/search.js"></script>
