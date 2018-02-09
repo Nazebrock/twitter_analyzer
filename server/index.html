@@ -14,7 +14,7 @@
             </div>
             <form class="search-form" action="#" onsubmit="search();">
                 <input id="search-field" type="text" placeholder="Rechercher un mot dans les tweet"/>
-                <input type="submit" value="Rechercher">
+                <input class="afficher_ht" id ="afficher_ht" type="submit" value="Rchercher">
             </form>
             <div id="result" >
                 <div id="stat" class="container">
@@ -23,9 +23,17 @@
                 <div id="wordcloud" class="container">
 
                 </div>
+                <div class="container">
+                    <div id="histo"> </div>
+                    <div id="plus_info"> </div>
+                </div>
+                <div id="map" class="container">
+
+                </div>
             </div>
             <div class="footer"></div>
         </div>
     </body>
 </html>
+<script src="js/graph.js"></script>
 <script src="js/search.js"></script>

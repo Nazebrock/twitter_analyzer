@@ -39,6 +39,7 @@ function wordcloud(words, n, maxFontSize, minFontSize){
         while(j < sortedWords[k].length && wdCount < n){
             var color = "rgb("+rand(1,100)+","+rand(1,100)+","+rand(1,100)+")";
             var p = document.createElement('span');
+            p.className += 'word';
             p.style.fontSize = fontSize+"px";
             p.style.color = color;
             p.style.padding = "2px";
@@ -60,9 +61,8 @@ function wordcloud(words, n, maxFontSize, minFontSize){
     wd.appendChild(div);
 }
 
-function searchRequest (query) {
+function request (url) {
   return new Promise(function (resolve, reject) {
-    var url = "/search?q="+query;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = function () {
@@ -87,18 +87,38 @@ function searchRequest (query) {
 
 function search(){
     //Get query string from text input
-    query = document.getElementById("search_field").value;
+    var query = document.getElementById("search-field").value;
+    var url = "/search?q="+query;
     console.log('Search Query : '+query);
     //Run Asynchronous XHR
-    Promise.resolve(searchRequest(query))
+    Promise.resolve(request(url))
     .then(function (res) {
         json = JSON.parse(res);
         console.log(json);
         if (json.hashtags != undefined)
             wordcloud(json.hashtags, 15, 100, 10);
+        if (json.places != undefined){
+            draw_hist(json.places);
+            color_hist(json.places);
+        }
     })
     .catch(function (err) {
         console.error('XHR ERROR : ', err);
     });
 }
 
+//Load svg world map
+window.onload = function(){
+    var url = "/static/world_map2.svg";
+    console.log('load '+url);
+    //Run Asynchronous XHR
+    Promise.resolve(request(url))
+    .then(function (res) {
+        res.className += 'worldMap'
+        map = document.getElementById('map');
+        map.innerHTML = res;
+    })
+    .catch(function (err) {
+        console.error('XHR LOAD ERROR : ', err);
+    });
+}
