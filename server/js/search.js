@@ -99,7 +99,6 @@ function search(){
             wordcloud(json.hashtags, 15, 100, 10);
         if (json.places != undefined){
             draw_hist(json.places);
-            color_hist(json.places);
         }
     })
     .catch(function (err) {
